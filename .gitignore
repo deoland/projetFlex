@@ -1,0 +1,49 @@
+// ActionScript file
+
+import flash.net.Responder;
+import flash.sampler.NewObjectSample;
+
+import mx.collections.ArrayCollection;
+import mx.controls.Alert;
+import mx.rpc.Responder;
+
+[Bindable] private var listeDev: ArrayCollection;
+[Bindable] private var  listeEntr:ArrayCollection;
+
+private var _idDev:int =-1;
+private var _idEnt:int =-1;
+
+private function evInit():void{
+  remoting.call("Teste.getAllDev", new Responder (actInit,onFault);
+}
+private function actInit(result:Array):void{
+	  var i:int;
+	  
+	  if(!listeDev) listeDev = new ArrayCollection;
+	  else listeDev.removeAll();
+	  
+	  if(result){  
+		  for(i=0; i<result.length; i++){
+			  listeDev.addItem({dc_id:result[i]["id"], dc_mat:result[i]["matricule"], dc_name:result[i]["nom"], dc_prenom:result[i]["prenom"], dc_adr:result[i]["adresse"],
+			  dc_pays:result[i]["nationalite"], dc_special:result[i]["specialite"], dc_phone:result[i]["dernier_diplome"], dc_fax:result[i]["datenaissance"]});
+		  }
+	  }
+	   		
+}
+
+
+private function evAfficherId():void{
+	     if(devTab.selectedItem) {
+			 this._idDev = devTab.selectedItem["dc_id"];
+			 d_adr.text = devTab.selectedItem["dc_adr"];
+			 d_fax.text = devTab.selectedItem["dc_fax"];
+			 d_mat.text = devTab.selectedItem["dc_mat"];
+			 d_naiss.text = devTab.selectedItem["dc_phone"];
+			 d_prenom.text = devTab.selectedItem["dc_prenom"];
+			 d_spec.text = devTab.selectedItem["dc_special"];
+			 d_nom.text = devTab.selectedItem["dc_name"];
+			 d_pays.text = devTab.selectedItem["dc_pays"];
+			 
+		 }
+}
+
